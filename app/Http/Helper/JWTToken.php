@@ -3,6 +3,7 @@ namespace App\Http\Helper;
 
 use Exception;
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class JWTToken{
     private static function getJWTKey()
@@ -31,6 +32,25 @@ class JWTToken{
         ];
 
         return JWT::encode($payload, $key, 'HS256');
+    }
+
+    public static function VerifyToken($token){
+        try{
+           if($token == null){
+               return "unauthorize";
+           }else{
+                  
+              $key = self::getJWTKey();
+              $decoded = JWT::decode($token, new Key($key,'HS256'));
+
+              return $decoded;
+           }
+
+
+
+        }catch(Exception $e){
+            return "unauthorize";
+        }
     }
 }
 

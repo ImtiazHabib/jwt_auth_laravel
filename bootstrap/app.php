@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\TokenVerification;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -15,6 +16,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->validateCsrfTokens(except: [
         '*',
     ]);
+         $middleware->alias([
+            'tokenVerification' => TokenVerification::class,
+         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

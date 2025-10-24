@@ -41,4 +41,15 @@ class AuthController extends Controller
               'token' =>$token,
         ])->cookie('token',$token,60*24);
       }
+
+      public function logout(){
+        return response()->json([
+             'status' =>true,
+              'message' =>"Logout Successful",
+        ])->cookie('token','' , -1);
+      }
+
+      public function dashbaord(){
+        return view('dashboard');
+      }
 }
